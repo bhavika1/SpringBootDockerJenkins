@@ -17,9 +17,10 @@ pipeline {
 			steps{
 				script{
 					docker.withRegistry('https://registry.hub.docker.com','docker-hub'){
-					dockerImage.push()
+						dockerImage.push()
+					}
 				}
 			}
 		}
-    }
+	}
 }

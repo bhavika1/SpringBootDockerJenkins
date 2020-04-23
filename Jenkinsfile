@@ -1,26 +1,22 @@
-pipeline {
-    agent none
-    stages {
-	    stage('Clone repository'){
-			steps {
-       			 git 'https://github.com/bhavika1/SpringBootDockerJenkins.git'
-      		}
+node{
+	def app
+	
+	stage('Clone repository'){
+		checkout scm
+	}
+	
+	stage('Build image'){
+		app = docker.build("bhavikapande/springbootnew")
+	}
+	
+	stage('Test image'){
+		echo "Done"
+	}
+	stage('Push Image'){
+		docker.withRegistry('https://registry.hub.docker.com','docker-hub'){
+			app.push("1")
 		}
-        stage('Build image'){
-        	steps{
-        		script{
-        			docker.build bhavikapande/springbootnew + ":1"
-        		}
-        	}
-		}
-		stage('Push Image'){
-			steps{
-				script{
-					docker.withRegistry('https://registry.hub.docker.com','docker-hub'){
-						dockerImage.push()
-					}
-				}
-			}
-		}
+		echo "Pushing build to docker hub"
 	}
 }
+

@@ -9,7 +9,7 @@ pipeline {
         stage('Build image'){
         	steps{
         		script{
-        			docker.build bhavikapande/springbootnew:1
+        			docker.build bhavikapande/springbootnew + ":1"
         		}
         	}
 		}
